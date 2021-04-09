@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:poke_api_app/features/pokemon/presentation/screenpokedex/screen/screen_pokedex.dart';
+import 'package:poke_api_app/features/pokemon/presentation/errorscreen/screen/error_screen.dart';
+import 'package:provider/provider.dart';
+
+import 'features/pokemon/presentation/screenpokedex/bloc/pokemon_bloc.dart';
+import 'features/pokemon/presentation/screenpokedex/screen/screen_pokedex.dart';
+import 'injection_container.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ScreenPokedex(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => sl<PokedexBloc>()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: ScreenError(),
+      ),
     );
   }
 }

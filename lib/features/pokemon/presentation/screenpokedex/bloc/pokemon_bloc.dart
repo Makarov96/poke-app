@@ -78,7 +78,6 @@ class PokedexBloc extends ChangeNotifier {
       stateofdata = STATEOFDATA.loaded;
       _results.addAll(list);
       _count = results.length;
-      print(_count);
       notifyListeners();
     });
   }
