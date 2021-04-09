@@ -31,6 +31,9 @@ class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
             children: [
               Expanded(
                 child: ListView.builder(
+                  padding: EdgeInsets.only(
+                    top: 80,
+                  ),
                   itemCount: model.count,
                   itemBuilder: (_, i) => CustomCardPokemon(
                     id: widget.indexFromUrl(model.results[i]),
