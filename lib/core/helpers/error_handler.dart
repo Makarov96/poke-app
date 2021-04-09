@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:poke_api_app/core/error/exception.dart';
 
-class ErrorHandler {
+mixin ErrorHandler {
   dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
