@@ -1,9 +1,14 @@
-import 'package:poke_api_app/features/pokemon/data/models/pokemon_model.dart';
-import 'package:poke_api_app/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:poke_api_app/features/pokemon/domain/repositories/pokemon_repository.dart';
+
+import '../../../../core/error/failure.dart';
+import '../../domain/repositories/pokemon_repository.dart';
+import '../models/pokemon_model.dart';
 
 class PokemonRepositoryIml implements PokemonRepostiry {
+  final PokemonRepostiry pokemonRepostiry;
+
+  PokemonRepositoryIml(this.pokemonRepostiry);
+
   @override
   Future<Either<Failure, List<Results>>> getPokemonFromAPI({int offset = 0}) {
     throw UnimplementedError();

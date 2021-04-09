@@ -4,7 +4,12 @@ class PokemonResponse {
   String previous;
   List<Results> results;
 
-  PokemonResponse({this.count, this.next, this.previous, this.results});
+  PokemonResponse({
+    this.count,
+    this.next,
+    this.previous,
+    this.results,
+  });
 
   PokemonResponse.fromJson(Map<String, dynamic> json) {
     count = json['count'];
