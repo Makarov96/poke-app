@@ -10,6 +10,8 @@ class PokedexBloc extends ChangeNotifier {
   final GetPokemon getPokemon;
 
   STATEOFDATA stateofdata = STATEOFDATA.loading;
+  ScrollController _scrollController;
+  ScrollController get scrollController => this._scrollController;
 
   PokedexBloc({
     @required GetPokemon getPokemon,
@@ -18,6 +20,30 @@ class PokedexBloc extends ChangeNotifier {
 
   List<Results> _results = [];
   List<Results> get results => this._results;
+
+  bool _scrollSwitch;
+  bool get scrollSwitch => this._scrollSwitch;
+  set scrollSwitch(bool value) {
+    this._scrollSwitch = value;
+    notifyListeners();
+  }
+
+  scrolContraollerInit() {
+    _scrollController = ScrollController(
+      initialScrollOffset: 0.0,
+      keepScrollOffset: true,
+    );
+    _scrollController.addListener(_scrollListener);
+  }
+
+  _scrollListener() {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - 200 &&
+        scrollSwitch == true) {
+      scrollSwitch = false;
+      getPokemonFromApi();
+    }
+  }
 
   int _count = 0;
   int get count => this._count;
@@ -40,10 +66,11 @@ class PokedexBloc extends ChangeNotifier {
   }
 
   void getPokemonFromApi() async {
-    if (_count == 880) {
+    if (_count == 847) {
       _results = results;
       notifyListeners();
     }
+
     final either = await getPokemon(ParamsGetPokemon(offset: _count));
     either.fold((message) {
       print('${message.message} ${message.prefix}');

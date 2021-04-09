@@ -6,7 +6,6 @@ import '../../../../../../core/helpers/managment_url_index_pokemon.dart';
 
 class ScreenLayoutPokemon extends StatefulWidget with ManagmentUrlIndexPokemon {
   ScreenLayoutPokemon({Key key}) : super(key: key);
-
   @override
   _ScreenLayoutPokemonState createState() => _ScreenLayoutPokemonState();
 }
@@ -15,6 +14,7 @@ class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
   @override
   void initState() {
     context.read<PokedexBloc>().getPokemonFromApi();
+    context.read<PokedexBloc>().scrolContraollerInit();
     super.initState();
   }
 
@@ -27,21 +27,17 @@ class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
             child: CircularProgressIndicator(),
           );
         } else {
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.only(
-                    top: 80,
-                  ),
-                  itemCount: model.count,
-                  itemBuilder: (_, i) => CustomCardPokemon(
-                    id: widget.indexFromUrl(model.results[i]),
-                    pokemon: model.results[i],
-                  ),
-                ),
-              )
-            ],
+          model.scrollSwitch = true;
+          return ListView.builder(
+            controller: model.scrollController,
+            padding: const EdgeInsets.only(
+              top: 180,
+            ),
+            itemCount: model.results.length,
+            itemBuilder: (_, i) => CustomCardPokemon(
+              id: widget.indexFromUrl(model.results[i]),
+              pokemon: model.results[i],
+            ),
           );
         }
       },

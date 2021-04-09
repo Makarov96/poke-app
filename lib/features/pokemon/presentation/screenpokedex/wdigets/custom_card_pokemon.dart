@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/ui/colors/custom_colors.dart';
@@ -29,14 +30,31 @@ class CustomCardPokemon extends StatelessWidget {
       child: Stack(
         children: [
           Container(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              '$id',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.4),
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(left: screenWidth * 0.05),
             child: Row(
               children: [
+                CachedNetworkImage(
+                  imageUrl:
+                      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
+                ),
                 Text(
                   pokemon.name.capitalize(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25,
                   ),
                 )
               ],
@@ -45,16 +63,17 @@ class CustomCardPokemon extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-          color: CustomColor.customredcolor,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 8,
-              spreadRadius: 1,
-              offset: Offset(4, 3),
-            ),
-          ]),
+        color: CustomColor.customredcolor,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.25),
+            blurRadius: 8,
+            spreadRadius: 1,
+            offset: Offset(4, 3),
+          ),
+        ],
+      ),
     );
   }
 }
