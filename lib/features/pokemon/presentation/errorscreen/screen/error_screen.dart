@@ -8,7 +8,9 @@ class ScreenError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScreenErrorLayout(),
+      body: SafeArea(
+        child: ScreenErrorLayout(),
+      ),
     );
   }
 }

@@ -27,6 +27,12 @@ class PokedexBloc extends ChangeNotifier {
     this._scrollSwitch = value;
   }
 
+  resetState() {
+    custommessage = '';
+    stateofdata = STATEOFDATA.loading;
+    notifyListeners();
+  }
+
   scrolContraollerInit() {
     _scrollController = ScrollController(
       initialScrollOffset: 0.0,
@@ -64,6 +70,14 @@ class PokedexBloc extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _custommessage;
+  get custommessage => this._custommessage;
+
+  set custommessage(value) {
+    this._custommessage = value;
+    notifyListeners();
+  }
+
   void getPokemonFromApi() async {
     if (_count == 1050) {
       _results = results;
@@ -73,6 +87,7 @@ class PokedexBloc extends ChangeNotifier {
     final either = await getPokemon(ParamsGetPokemon(offset: _count));
     either.fold((message) {
       print('${message.message} ${message.prefix}');
+      custommessage = message.message;
       stateofdata = STATEOFDATA.failure;
     }, (list) {
       stateofdata = STATEOFDATA.loaded;

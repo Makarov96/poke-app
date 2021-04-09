@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:poke_api_app/core/ui/colors/custom_colors.dart';
-import 'package:poke_api_app/core/ui/images/path.dart';
-import 'package:poke_api_app/features/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
 
-class ScreenErrorLayout extends StatelessWidget {
+import '../../../../../../core/ui/colors/custom_colors.dart';
+import '../../../../../../core/ui/images/path.dart';
+import '../../../../../widgets/custom_button.dart';
+import '../../../screenpokedex/bloc/pokemon_bloc.dart';
+
+class ScreenErrorLayout extends StatefulWidget {
   const ScreenErrorLayout({Key key}) : super(key: key);
+
+  @override
+  _ScreenErrorLayoutState createState() => _ScreenErrorLayoutState();
+}
+
+class _ScreenErrorLayoutState extends State<ScreenErrorLayout> {
+  @override
+  void initState() {
+    context.read<PokedexBloc>().getPokemonFromApi();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +28,48 @@ class ScreenErrorLayout extends StatelessWidget {
     return Container(
       child: Stack(
         children: [
+          Consumer<PokedexBloc>(
+            builder: (_, model, widget) {
+              return Container(
+                margin: EdgeInsets.only(
+                  top: screenHeight * 0.2,
+                  left: screenWidth * 0.05,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${model.custommessage}',
+                      style: TextStyle(
+                        color: CustomColor.customgreycolor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenHeight * 0.01,
+                    ),
+                    Text(
+                      'please try again later...',
+                      style: TextStyle(
+                        color: CustomColor.customgreycolor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
           Align(
             alignment: Alignment.center,
             child: CustomButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<PokedexBloc>().getPokemonFromApi();
+                context.read<PokedexBloc>().resetState();
+              },
             ),
           ),
           Align(
