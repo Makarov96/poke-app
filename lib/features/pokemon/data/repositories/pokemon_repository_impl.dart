@@ -1,16 +1,41 @@
 import 'package:dartz/dartz.dart';
+import 'package:meta/meta.dart' show required;
 
-import '../../../../core/error/failure.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/network/network_info.dart';
 import '../../domain/repositories/pokemon_repository.dart';
+import '../datasource/pokemon_remote_data_source.dart';
 import '../models/pokemon_model.dart';
 
-class PokemonRepositoryIml implements PokemonRepostiry {
-  final PokemonRepostiry pokemonRepostiry;
+typedef _HandleGetPokemon = Future<List<Results>> Function();
 
-  PokemonRepositoryIml(this.pokemonRepostiry);
+class PokemonRepositoryImlp implements PokemonRepostiry {
+  final PokemonRemoteDataSource pokemonRemoteDataSource;
+  final NetworkInfo networkInfo;
+
+  PokemonRepositoryImlp({
+    @required this.pokemonRemoteDataSource,
+    @required this.networkInfo,
+  });
 
   @override
-  Future<Either<Failure, List<Results>>> getPokemonFromAPI({int offset = 0}) {
-    throw UnimplementedError();
+  Future<Either<ServerException, List<Results>>> getPokemonFromAPI(
+      {int offset = 0}) async {
+    return await _handleGetPokemon(() {
+      return pokemonRemoteDataSource.getPokemon(offset: offset);
+    });
+  }
+
+  Future<Either<ServerException, List<Results>>> _handleGetPokemon(
+    _HandleGetPokemon handleGetPokemon,
+  ) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final getPokemon = await handleGetPokemon();
+        return Right(getPokemon);
+      } on ServerException {
+        return Left(ServerException());
+      }
+    } else {}
   }
 }
