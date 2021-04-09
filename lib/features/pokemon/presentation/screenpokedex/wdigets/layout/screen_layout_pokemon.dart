@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:poke_api_app/core/helpers/managment_url_index_pokemon.dart';
 import 'package:provider/provider.dart';
-
+import '../custom_card_pokemon.dart';
 import '../../bloc/pokemon_bloc.dart';
+import '../../../../../../core/helpers/managment_url_index_pokemon.dart';
 
 class ScreenLayoutPokemon extends StatefulWidget with ManagmentUrlIndexPokemon {
   ScreenLayoutPokemon({Key key}) : super(key: key);
@@ -27,12 +27,18 @@ class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
             child: CircularProgressIndicator(),
           );
         } else {
-          return ListView.builder(
-            itemCount: model.count,
-            itemBuilder: (_, i) {
-              widget.indexFromUrl(model.results[i]);
-              return Text('${model.results[i].url}');
-            },
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: model.count,
+                  itemBuilder: (_, i) => CustomCardPokemon(
+                    id: widget.indexFromUrl(model.results[i]),
+                    pokemon: model.results[i],
+                  ),
+                ),
+              )
+            ],
           );
         }
       },
