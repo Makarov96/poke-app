@@ -9,11 +9,11 @@ import '../models/pokemon_model.dart';
 
 typedef _HandleGetPokemon = Future<List<Results>> Function();
 
-class PokemonRepositoryImlp implements PokemonRepostiry {
+class PokemonRepositoryImpl implements PokemonRepostiry {
   final PokemonRemoteDataSource pokemonRemoteDataSource;
   final NetworkInfo networkInfo;
 
-  PokemonRepositoryImlp({
+  PokemonRepositoryImpl({
     @required this.pokemonRemoteDataSource,
     @required this.networkInfo,
   });

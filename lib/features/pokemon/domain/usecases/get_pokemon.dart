@@ -10,7 +10,9 @@ import '../repositories/pokemon_repository.dart';
 class GetPokemon implements UseCase<List<Results>, ParamsGetPokemon> {
   final PokemonRepostiry repostiry;
 
-  GetPokemon(this.repostiry);
+  GetPokemon(
+    this.repostiry,
+  );
   @override
   Future<Either<ServerException, List<Results>>> call(
       ParamsGetPokemon params) async {
