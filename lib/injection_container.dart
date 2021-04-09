@@ -6,7 +6,7 @@ import 'package:poke_api_app/features/pokemon/data/datasource/pokemon_remote_dat
 import 'package:poke_api_app/features/pokemon/data/repositories/pokemon_repository_impl.dart';
 import 'package:poke_api_app/features/pokemon/domain/repositories/pokemon_repository.dart';
 import 'package:poke_api_app/features/pokemon/domain/usecases/get_pokemon.dart';
-import 'package:poke_api_app/features/pokemon/presentation/screenpokedex/bloc/pokedex_bloc.dart';
+import 'package:poke_api_app/features/pokemon/presentation/screenpokedex/bloc/pokemon_bloc.dart';
 
 final sl = GetIt.instance;
 
