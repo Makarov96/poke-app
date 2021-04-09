@@ -30,7 +30,7 @@ class PokemonRemoteDataSourceImpl
       final responseString = returnResponse(response);
       final results = PokemonResponse.fromJson(responseString).results;
       return results;
-    } on ServerException {
+    } catch (_) {
       throw FetchDataException('Unexpected error');
     }
   }

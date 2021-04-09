@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../../../core/ui/colors/custom_colors.dart';
 import '../../../../../core/ui/extension/string_extension.dart';
@@ -31,12 +31,15 @@ class CustomCardPokemon extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.bottomRight,
+            margin: EdgeInsets.only(
+              right: screenWidth * 0.02,
+            ),
             child: Text(
-              '$id',
+              '${id.addZero()}',
               style: TextStyle(
                 color: Colors.white.withOpacity(0.4),
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 50,
               ),
             ),
           ),
@@ -51,6 +54,8 @@ class CustomCardPokemon extends StatelessWidget {
                 ),
                 Text(
                   pokemon.name.capitalize(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w800,

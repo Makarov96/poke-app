@@ -25,7 +25,6 @@ class PokedexBloc extends ChangeNotifier {
   bool get scrollSwitch => this._scrollSwitch;
   set scrollSwitch(bool value) {
     this._scrollSwitch = value;
-    notifyListeners();
   }
 
   scrolContraollerInit() {
@@ -66,7 +65,7 @@ class PokedexBloc extends ChangeNotifier {
   }
 
   void getPokemonFromApi() async {
-    if (_count == 847) {
+    if (_count == 1050) {
       _results = results;
       notifyListeners();
     }
@@ -79,6 +78,7 @@ class PokedexBloc extends ChangeNotifier {
       stateofdata = STATEOFDATA.loaded;
       _results.addAll(list);
       _count = results.length;
+      print(_count);
       notifyListeners();
     });
   }
