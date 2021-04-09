@@ -34,8 +34,10 @@ class PokemonRepositoryImlp implements PokemonRepostiry {
         final getPokemon = await handleGetPokemon();
         return Right(getPokemon);
       } on ServerException {
-        return Left(ServerException());
+        return Left(FetchDataException());
       }
-    } else {}
+    } else {
+      return Left(NetworkException());
+    }
   }
 }

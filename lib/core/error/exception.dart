@@ -32,3 +32,7 @@ class UnauthorisedException extends ServerException {
 class InvalidInputException extends ServerException {
   InvalidInputException([String message]) : super(message, "Invalid Input: ");
 }
+
+class NetworkException extends ServerException {
+  NetworkException([String message]) : super(message, "Something went wrong.");
+}
