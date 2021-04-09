@@ -33,7 +33,7 @@ class PokedexBloc extends ChangeNotifier {
   void getPokemonFromApi(int offset) async {
     final either = await getPokemon(ParamsGetPokemon(offset: offset));
     either.fold((message) {
-      print(message);
+      print('${message.message} ${message.prefix}');
     }, (list) {
       _results.addAll(list);
       notifyListeners();

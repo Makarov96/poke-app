@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class ServerException implements Exception, Equatable {
-  final _message;
-  final _prefix;
+  final message;
+  final prefix;
 
-  ServerException([this._message, this._prefix]);
+  ServerException([this.message, this.prefix]);
   @override
   List<Object> get props => [];
 
@@ -12,27 +12,28 @@ class ServerException implements Exception, Equatable {
   bool get stringify => true;
 
   String toString() {
-    return "$_prefix$_message";
+    return '$prefix$message';
   }
 }
 
 class FetchDataException extends ServerException {
   FetchDataException([String message])
-      : super(message, "Error During Communication: ");
+      : super(message, 'Error During Communication: ');
 }
 
 class BadRequestException extends ServerException {
-  BadRequestException([message]) : super(message, "Invalid Request: ");
+  BadRequestException([message]) : super(message, 'Invalid Request: ');
 }
 
 class UnauthorisedException extends ServerException {
-  UnauthorisedException([message]) : super(message, "Unauthorised: ");
+  UnauthorisedException([message]) : super(message, 'Unauthorised: ');
 }
 
 class InvalidInputException extends ServerException {
-  InvalidInputException([String message]) : super(message, "Invalid Input: ");
+  InvalidInputException([String message]) : super(message, 'Invalid Input: ');
 }
 
 class NetworkException extends ServerException {
-  NetworkException([String message]) : super(message, "Something went wrong.");
+  NetworkException([String message])
+      : super(message, 'Network Failure Internet Connection');
 }

@@ -31,7 +31,7 @@ class PokemonRemoteDataSourceImpl
       final results = PokemonResponse.fromJson(responseString).results;
       return results;
     } on ServerException {
-      throw FetchDataException('No Internet connection');
+      throw FetchDataException('Unexpected error');
     }
   }
 }

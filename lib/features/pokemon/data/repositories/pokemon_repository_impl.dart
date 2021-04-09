@@ -34,10 +34,10 @@ class PokemonRepositoryImpl implements PokemonRepostiry {
         final getPokemon = await handleGetPokemon();
         return Right(getPokemon);
       } on ServerException {
-        return Left(FetchDataException());
+        return Left(FetchDataException('Failure call to api'));
       }
     } else {
-      return Left(NetworkException());
+      return Left(NetworkException('Something went wrong.'));
     }
   }
 }
