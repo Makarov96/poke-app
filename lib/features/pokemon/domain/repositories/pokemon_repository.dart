@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:poke_api_app/core/error/exception.dart';
 
+import '../../../../core/error/exception.dart';
 import '../../data/models/pokemon_model.dart';
 
 abstract class PokemonRepostiry {
