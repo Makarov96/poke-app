@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poke_api_app/features/pokemon/presentation/errorscreen/screen/error_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/helpers/managment_url_index_pokemon.dart';
@@ -15,9 +16,26 @@ class ScreenLayoutPokemon extends StatefulWidget with ManagmentUrlIndexPokemon {
 class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
   @override
   void initState() {
+    context.read<PokedexBloc>().stateofdata.addListener(_addListener);
     context.read<PokedexBloc>().getPokemonFromApi();
     context.read<PokedexBloc>().scrolContraollerInit();
     super.initState();
+  }
+
+  _addListener() {
+    if (context.read<PokedexBloc>().stateofdata.value == STATEOFDATA.failure) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (BuildContext context) => ScreenError(),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    context.read<PokedexBloc>().stateofdata.removeListener(_addListener);
+    super.dispose();
   }
 
   @override
@@ -26,7 +44,7 @@ class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Consumer<PokedexBloc>(
       builder: (_, model, child) {
-        if (model.stateofdata == STATEOFDATA.loading) {
+        if (model.stateofdata.value == STATEOFDATA.loading) {
           return Center(
             child: CustomLoadingPikachu(
               height: screenHeight * 0.3,
@@ -34,17 +52,26 @@ class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
             ),
           );
         } else {
-          model.scrollSwitch = true;
-          return ListView.builder(
-            controller: model.scrollController,
-            padding: const EdgeInsets.only(
-              top: 180,
-            ),
-            itemCount: model.results.length,
-            itemBuilder: (_, i) => CustomCardPokemon(
-              id: widget.indexFromUrl(model.results[i]),
-              pokemon: model.results[i],
-            ),
+          print(model.scrollSwitch);
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  controller: model.scrollController,
+                  padding: const EdgeInsets.only(
+                    top: 180,
+                  ),
+                  itemCount: model.results.length,
+                  itemBuilder: (_, i) => CustomCardPokemon(
+                    id: widget.indexFromUrl(model.results[i]),
+                    pokemon: model.results[i],
+                  ),
+                ),
+              ),
+              model.scrollSwitch
+                  ? Container()
+                  : CustomLoadingPikachu(height: 50, width: 50)
+            ],
           );
         }
       },

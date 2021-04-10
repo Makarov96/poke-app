@@ -9,7 +9,6 @@ enum STATEOFDATA { loading, loaded, failure }
 class PokedexBloc extends ChangeNotifier {
   final GetPokemon getPokemon;
 
-  STATEOFDATA stateofdata = STATEOFDATA.loading;
   ScrollController _scrollController;
   ScrollController get scrollController => this._scrollController;
 
@@ -18,6 +17,9 @@ class PokedexBloc extends ChangeNotifier {
   })  : assert(getPokemon != null),
         getPokemon = getPokemon;
 
+  ValueNotifier<STATEOFDATA> stateofdata =
+      ValueNotifier<STATEOFDATA>(STATEOFDATA.loading);
+
   List<Results> _results = [];
   List<Results> get results => this._results;
 
@@ -25,11 +27,12 @@ class PokedexBloc extends ChangeNotifier {
   bool get scrollSwitch => this._scrollSwitch;
   set scrollSwitch(bool value) {
     this._scrollSwitch = value;
+    notifyListeners();
   }
 
   resetState() {
     custommessage = '';
-    stateofdata = STATEOFDATA.loading;
+    stateofdata.value = STATEOFDATA.loading;
     notifyListeners();
   }
 
@@ -46,6 +49,7 @@ class PokedexBloc extends ChangeNotifier {
             _scrollController.position.maxScrollExtent - 200 &&
         scrollSwitch == true) {
       scrollSwitch = false;
+      notifyListeners();
       getPokemonFromApi();
     }
   }
@@ -86,11 +90,12 @@ class PokedexBloc extends ChangeNotifier {
 
     final either = await getPokemon(ParamsGetPokemon(offset: _count));
     either.fold((message) {
-      print('${message.message} ${message.prefix}');
       custommessage = message.message;
-      stateofdata = STATEOFDATA.failure;
+      stateofdata.value = STATEOFDATA.failure;
     }, (list) {
-      stateofdata = STATEOFDATA.loaded;
+      stateofdata.value = STATEOFDATA.loaded;
+      scrollSwitch = true;
+
       _results.addAll(list);
       _count = results.length;
       notifyListeners();

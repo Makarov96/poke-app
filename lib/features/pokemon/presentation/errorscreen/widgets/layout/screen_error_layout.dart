@@ -69,6 +69,7 @@ class _ScreenErrorLayoutState extends State<ScreenErrorLayout> {
               onPressed: () {
                 context.read<PokedexBloc>().getPokemonFromApi();
                 context.read<PokedexBloc>().resetState();
+                Navigator.pop(context);
               },
             ),
           ),

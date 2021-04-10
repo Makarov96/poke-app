@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:poke_api_app/features/pokemon/presentation/errorscreen/screen/error_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'features/pokemon/presentation/screenpokedex/bloc/pokemon_bloc.dart';
@@ -11,11 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => sl<PokedexBloc>()),
+        ChangeNotifierProvider(create: (context) => sl<PokedexBloc>())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ScreenError(),
+        home: ScreenPokedex(),
       ),
     );
   }
