@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:poke_api_app/features/pokemon/presentation/errorscreen/screen/error_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/helpers/managment_url_index_pokemon.dart';
 import '../../../../../widgets/custom_loading_pikachu.dart';
+import '../../../errorscreen/screen/error_screen.dart';
 import '../../bloc/pokemon_bloc.dart';
 import '../custom_card_pokemon.dart';
 
