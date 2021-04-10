@@ -63,6 +63,7 @@ class CustomCardPokemon extends StatelessWidget {
             child: Row(
               children: [
                 CachedNetworkImage(
+                  fit: BoxFit.cover,
                   imageUrl:
                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
                 ),
