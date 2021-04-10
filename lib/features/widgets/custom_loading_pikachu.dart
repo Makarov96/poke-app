@@ -15,25 +15,22 @@ class CustomLoadingPikachu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: height,
-              width: width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(ImagePath.pikachuGig),
-                ),
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          alignment: Alignment.bottomCenter,
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(ImagePath.pikachuGig),
             ),
-            Text('Loading...'),
-          ],
+          ),
         ),
-      ),
+        Text('Loading...'),
+      ],
     );
   }
 }

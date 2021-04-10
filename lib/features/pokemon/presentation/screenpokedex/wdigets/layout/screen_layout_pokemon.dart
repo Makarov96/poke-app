@@ -52,25 +52,31 @@ class _ScreenLayoutPokemonState extends State<ScreenLayoutPokemon> {
             ),
           );
         } else {
-          print(model.scrollSwitch);
-          return Column(
+          return Stack(
             children: [
-              Expanded(
-                child: ListView.builder(
-                  controller: model.scrollController,
-                  padding: const EdgeInsets.only(
-                    top: 180,
-                  ),
-                  itemCount: model.results.length,
-                  itemBuilder: (_, i) => CustomCardPokemon(
-                    id: widget.indexFromUrl(model.results[i]),
-                    pokemon: model.results[i],
-                  ),
+              ListView.builder(
+                controller: model.scrollController,
+                padding: EdgeInsets.only(
+                  top: screenHeight * 0.1,
+                  bottom: screenHeight * 0.1,
+                ),
+                itemCount: model.results.length,
+                itemBuilder: (_, i) => CustomCardPokemon(
+                  id: widget.indexFromUrl(model.results[i]),
+                  pokemon: model.results[i],
                 ),
               ),
               model.scrollSwitch
                   ? Container()
-                  : CustomLoadingPikachu(height: 50, width: 50)
+                  : Positioned(
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      child: CustomLoadingPikachu(
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
             ],
           );
         }

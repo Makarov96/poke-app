@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../../../core/ui/colors/custom_colors.dart';
 import '../../../../../core/ui/extension/string_extension.dart';
+import '../../../../../core/ui/images/path.dart';
 import '../../../data/models/pokemon_model.dart';
 
 class CustomCardPokemon extends StatelessWidget {
@@ -29,6 +30,19 @@ class CustomCardPokemon extends StatelessWidget {
       ),
       child: Stack(
         children: [
+          Transform.translate(
+            offset: Offset(-screenWidth * 0.1, 0),
+            child: Container(
+              width: screenWidth * 0.5,
+              height: screenHeight * 0.5,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(ImagePath.pokeball),
+                ),
+              ),
+            ),
+          ),
           Container(
             alignment: Alignment.bottomRight,
             margin: EdgeInsets.only(
@@ -52,14 +66,17 @@ class CustomCardPokemon extends StatelessWidget {
                   imageUrl:
                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png',
                 ),
-                Text(
-                  pokemon.name.capitalize(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 25,
+                Container(
+                  width: screenWidth * 0.35,
+                  child: Text(
+                    pokemon.name.capitalize(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 25,
+                    ),
                   ),
                 )
               ],
