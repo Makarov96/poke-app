@@ -6,7 +6,7 @@ import '../../../domain/usecases/get_pokemon.dart';
 
 enum STATEOFDATA { loading, loaded, failure }
 
-class PokedexBloc extends ChangeNotifier {
+class PokedexBloc with ChangeNotifier {
   final GetPokemon getPokemon;
 
   ScrollController _scrollController;
@@ -36,7 +36,7 @@ class PokedexBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  scrolContraollerInit() {
+  void scrolContraollerInit() {
     _scrollController = ScrollController(
       initialScrollOffset: 0.0,
       keepScrollOffset: true,

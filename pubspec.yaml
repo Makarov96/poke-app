@@ -30,7 +30,7 @@ dependencies:
   equatable: ^1.2.6
   get_it: ^5.0.5
   http: ^0.12.2
-
+  flutter_riverpod: ^0.12.1
   provider: ^4.3.3
 
 dev_dependencies:
