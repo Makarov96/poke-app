@@ -3,15 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-import '../../../../../core/network/network_info.dart';
-import '../../../data/datasource/pokemon_remote_data_source.dart';
-import '../../../data/repositories/pokemon_repository_impl.dart';
-import '../../../domain/repositories/pokemon_repository.dart';
-import '../../../domain/usecases/get_pokemon.dart';
-import 'pokemon_bloc.dart';
+import 'core/network/network_info.dart';
+import 'features/pokemon/data/datasource/pokemon_remote_data_source.dart';
+import 'features/pokemon/data/repositories/pokemon_repository_impl.dart';
+import 'features/pokemon/domain/repositories/pokemon_repository.dart';
+import 'features/pokemon/domain/usecases/get_pokemon.dart';
+import 'features/pokemon/presentation/screenpokedex/bloc/pokemon_bloc.dart';
 
 //bloc
-final pokedexBloc = ChangeNotifierProvider<PokedexBloc>(
+final pokedexBloc = AutoDisposeChangeNotifierProvider<PokedexBloc>(
   (ref) => PokedexBloc(
     getPokemon: ref.watch(_diUseCase),
   ),
@@ -50,6 +50,7 @@ final _diNetworInfo = Provider<NetworkInfo>(
 final _diDataconection = Provider<DataConnectionChecker>(
   (ref) => DataConnectionChecker(),
 );
+
 final _diHttp = Provider<Client>(
   (ref) => http.Client(),
 );
